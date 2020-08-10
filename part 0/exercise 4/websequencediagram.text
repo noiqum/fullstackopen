@@ -1,0 +1,20 @@
+title adding new note
+
+
+
+
+
+browser->server: HTTP POST request https://fullstack-exampleapp.herokuapp.com/new_note
+server->browser: HTTP status code 302 and tell the browser make a get request
+browser->server:HTTP GET request https://fullstack-exampleapp.herokuapp.com/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
+server-->browser: main.js
+
+note over  browser:run the code inside main.js and call json data from server
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+server-->browser: JSON data
+
+note over browser: browser trigger event,callback function invoked and manipulate dom create notes
