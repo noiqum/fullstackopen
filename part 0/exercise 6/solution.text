@@ -1,0 +1,9 @@
+title Part:0.6
+
+browser->server:HTTP POST request https://fullstack-exampleapp.herokuapp.com/new_note_spa
+
+note over browser:a new note created,display and send a directive to server like note it down
+
+server->browser:turn a response "note is cretaed":
+
+note over  browser:browser stayed at the same page server did not send redirect action

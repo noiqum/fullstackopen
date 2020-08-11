@@ -1,0 +1,16 @@
+title SPA
+
+browser->server: HTTP GET request https://fullstack-exampleapp.herokuapp.com/spa
+
+server->browser:Return Html code 
+note left of browser:browser run html that return from server 
+browser-> server: HTTP GET main.css / that being asked to get inside HTML
+server->browser:return main.css
+browser->server:HTTP GET spa.js /that being asked to get inside from HTML
+server->browser:Return spa.js
+note left of browser:
+execude spa.js and Request from server data
+end note 
+browser->server:HTTP GET data.json 
+server->browser:return data.json
+note left of  browser:event handling and writing note node to dom tree
