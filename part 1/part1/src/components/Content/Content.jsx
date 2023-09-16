@@ -1,13 +1,26 @@
 import Part from "../Part/Part";
-
-const Content = () => {
+import PropTypes from "prop-types";
+const Content = (props) => {
   return (
     <>
-      <Part name="Fundamentals of React" exerciseNbr={10}></Part>
-      <Part name="Using props to pass data" exerciseNbr={7}></Part>
-      <Part name="State of a component" exerciseNbr={14}></Part>
+      <Part
+        name={props.parts[0].name}
+        exerciseNbr={props.parts[0].exercises}
+      ></Part>
+      <Part
+        name={props.parts[1].name}
+        exerciseNbr={props.parts[1].exercises}
+      ></Part>
+      <Part
+        name={props.parts[2].name}
+        exerciseNbr={props.parts[2].exercises}
+      ></Part>
     </>
   );
+};
+
+Content.propTypes = {
+  parts: PropTypes.array.isRequired,
 };
 
 export default Content;

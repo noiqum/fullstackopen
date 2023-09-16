@@ -1,5 +1,6 @@
 import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
+import Total from "./components/Total/Total";
 
 const App = () => {
   const course = "Half Stack application development";
@@ -17,18 +18,12 @@ const App = () => {
       exercises: 14,
     },
   ];
-  function getTotalExercise(partList) {
-    let total = 0;
-    partList.forEach((element) => {
-      total = total + element.exercises;
-    });
-    return total;
-  }
+
   return (
     <div>
       <Header course={course}></Header>
-      <Content />
-      <p>Number of exercises {getTotalExercise(parts)}</p>
+      <Content parts={parts} />
+      <Total list={parts}></Total>
     </div>
   );
 };
