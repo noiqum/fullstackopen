@@ -16,6 +16,19 @@ const App = () => {
   const badBtnHandler = () => {
     setBad(bad + 1);
   };
+
+  const getTotal = () => {
+    const total = good * 1 + bad * -1;
+    return total;
+  };
+  const getAverage = () => {
+    const totalVote = good + bad + neutral;
+    const cumitative = getTotal();
+    return cumitative / totalVote;
+  };
+  const getPossitiveRatio = () => {
+    return (good / (good + bad + neutral)) * 100;
+  };
   return (
     <div>
       <Header course="give feedback"></Header>
@@ -29,6 +42,9 @@ const App = () => {
         <span>{`good ${good}`}</span>
         <span>{`neutral ${neutral}`}</span>
         <span>{`bad ${bad}`}</span>
+        <span>{`all ${getTotal()}`}</span>
+        <span>{`average ${getAverage()}`}</span>
+        <span>{`positive ${getPossitiveRatio()} %`}</span>
       </div>
     </div>
   );
