@@ -24,12 +24,33 @@ const App = () => {
     updatedPointList[selected] = updatedPointList[selected] + 1;
     setPoints(updatedPointList);
   };
+  const renderMostVoted = () => {
+    let topOne = 0;
+    points.forEach((e) => {
+      if (e > topOne) {
+        topOne = e;
+      }
+    });
+    if (topOne > 0) {
+      return (
+        <>
+          <p>{anecdotes[points.findIndex((elm) => elm === topOne)]}</p>
+          <p>has {topOne} votes</p>
+        </>
+      );
+    } else {
+      return;
+    }
+  };
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {points[selected]} votes</p>
       <button onClick={btnHandler}>next anecdote</button>
       <button onClick={voteBtnHandler}>vote</button>
+      <h1>Anecdote with most votes</h1>
+      {renderMostVoted()}
     </div>
   );
 };
