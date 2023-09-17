@@ -1,5 +1,6 @@
 import Header from "./components/Header/Header";
 import { useState } from "react";
+import Statistics from "./components/Statistics/Statistics";
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -17,18 +18,6 @@ const App = () => {
     setBad(bad + 1);
   };
 
-  const getTotal = () => {
-    const total = good * 1 + bad * -1;
-    return total;
-  };
-  const getAverage = () => {
-    const totalVote = good + bad + neutral;
-    const cumitative = getTotal();
-    return cumitative / totalVote;
-  };
-  const getPossitiveRatio = () => {
-    return (good / (good + bad + neutral)) * 100;
-  };
   return (
     <div>
       <Header course="give feedback"></Header>
@@ -37,15 +26,7 @@ const App = () => {
         <button onClick={neutralBtnHandler}>neutral</button>
         <button onClick={badBtnHandler}>bad</button>
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <h2>Statistics</h2>
-        <span>{`good ${good}`}</span>
-        <span>{`neutral ${neutral}`}</span>
-        <span>{`bad ${bad}`}</span>
-        <span>{`all ${getTotal()}`}</span>
-        <span>{`average ${getAverage()}`}</span>
-        <span>{`positive ${getPossitiveRatio()} %`}</span>
-      </div>
+      <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
     </div>
   );
 };
