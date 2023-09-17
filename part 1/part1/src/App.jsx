@@ -1,6 +1,7 @@
 import Header from "./components/Header/Header";
 import { useState } from "react";
 import Statistics from "./components/Statistics/Statistics";
+import { FeedbackBtn } from "./components/FeedbackBtn/FeedbackBtn";
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -22,9 +23,12 @@ const App = () => {
     <div>
       <Header course="give feedback"></Header>
       <div>
-        <button onClick={goodBtnHandler}>good</button>
-        <button onClick={neutralBtnHandler}>neutral</button>
-        <button onClick={badBtnHandler}>bad</button>
+        <FeedbackBtn name="good" clickHandler={goodBtnHandler}></FeedbackBtn>
+        <FeedbackBtn
+          name="neutral"
+          clickHandler={neutralBtnHandler}
+        ></FeedbackBtn>
+        <FeedbackBtn name="bad" clickHandler={badBtnHandler}></FeedbackBtn>
       </div>
       <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
     </div>

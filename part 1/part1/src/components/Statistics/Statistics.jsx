@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import StatisticLine from "../StatisticLine/StatisticLine";
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
@@ -22,12 +23,18 @@ const Statistics = (props) => {
       {good > 0 || neutral > 0 || bad > 0 ? (
         <>
           {" "}
-          <span>{`good ${good}`}</span>
-          <span>{`neutral ${neutral}`}</span>
-          <span>{`bad ${bad}`}</span>
-          <span>{`all ${getTotal()}`}</span>
-          <span>{`average ${getAverage()}`}</span>
-          <span>{`positive ${getPossitiveRatio()} %`}</span>{" "}
+          <StatisticLine text="good" value={`${good}`}></StatisticLine>
+          <StatisticLine text="neutral" value={`${neutral}`}></StatisticLine>
+          <StatisticLine text="bad" value={`${bad}`}></StatisticLine>
+          <StatisticLine text="all" value={` ${getTotal()}`}></StatisticLine>
+          <StatisticLine
+            text="average"
+            value={` ${getAverage()}`}
+          ></StatisticLine>
+          <StatisticLine
+            text="positive"
+            value={` ${getPossitiveRatio()} %`}
+          ></StatisticLine>
         </>
       ) : (
         <p>No feedback given</p>
