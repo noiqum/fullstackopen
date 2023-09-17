@@ -19,12 +19,19 @@ const Statistics = (props) => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <h2>Statistics</h2>
-      <span>{`good ${good}`}</span>
-      <span>{`neutral ${neutral}`}</span>
-      <span>{`bad ${bad}`}</span>
-      <span>{`all ${getTotal()}`}</span>
-      <span>{`average ${getAverage()}`}</span>
-      <span>{`positive ${getPossitiveRatio()} %`}</span>
+      {good > 0 || neutral > 0 || bad > 0 ? (
+        <>
+          {" "}
+          <span>{`good ${good}`}</span>
+          <span>{`neutral ${neutral}`}</span>
+          <span>{`bad ${bad}`}</span>
+          <span>{`all ${getTotal()}`}</span>
+          <span>{`average ${getAverage()}`}</span>
+          <span>{`positive ${getPossitiveRatio()} %`}</span>{" "}
+        </>
+      ) : (
+        <p>No feedback given</p>
+      )}
     </div>
   );
 };
