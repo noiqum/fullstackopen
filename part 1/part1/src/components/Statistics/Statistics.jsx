@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import StatisticLine from "../StatisticLine/StatisticLine";
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
@@ -21,21 +20,34 @@ const Statistics = (props) => {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <h2>Statistics</h2>
       {good > 0 || neutral > 0 || bad > 0 ? (
-        <>
-          {" "}
-          <StatisticLine text="good" value={`${good}`}></StatisticLine>
-          <StatisticLine text="neutral" value={`${neutral}`}></StatisticLine>
-          <StatisticLine text="bad" value={`${bad}`}></StatisticLine>
-          <StatisticLine text="all" value={` ${getTotal()}`}></StatisticLine>
-          <StatisticLine
-            text="average"
-            value={` ${getAverage()}`}
-          ></StatisticLine>
-          <StatisticLine
-            text="positive"
-            value={` ${getPossitiveRatio()} %`}
-          ></StatisticLine>
-        </>
+        <table>
+          <tbody>
+            <tr>
+              <td>good</td>
+              <td>{good}</td>
+            </tr>
+            <tr>
+              <td>neutral</td>
+              <td>{neutral}</td>
+            </tr>
+            <tr>
+              <td>bad</td>
+              <td>{bad}</td>
+            </tr>
+            <tr>
+              <td>all</td>
+              <td>{getTotal()}</td>
+            </tr>
+            <tr>
+              <td>average</td>
+              <td>{getAverage()}</td>
+            </tr>
+            <tr>
+              <td>positive</td>
+              <td>{`${getPossitiveRatio().toFixed(1)} %`}</td>
+            </tr>
+          </tbody>
+        </table>
       ) : (
         <p>No feedback given</p>
       )}
