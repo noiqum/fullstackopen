@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 const Course = ({ course }) => {
+  //reduce method to sum up the exercises
   const total = course.parts.reduce((sum, part) => {
     return sum + part.exercises;
   }, 0);
