@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-
+// Course component
 const Course = ({ course }) => {
   //reduce method to sum up the exercises
   const total = course.parts.reduce((sum, part) => {
