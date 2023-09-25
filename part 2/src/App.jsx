@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Filter from "./components/Filter/Filter";
+import PersonForm from "./components/PersonForm/PersonForm";
+import Persons from "./components/Persons/Persons";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -10,6 +13,11 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+
+  const filterHandler = (event) => {
+    event.preventDefault();
+    setFilter(event.target.value);
+  };
 
   const newNameHandler = (event) => {
     event.preventDefault();
@@ -37,32 +45,17 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with{" "}
-        <input value={filter} onChange={(e) => setFilter(e.target.value)} />
-      </div>
+      <Filter value={filter} onChange={filterHandler}></Filter>
       <h2>Add a new</h2>
-      <form onSubmit={addNewName}>
-        <div>
-          name: <input value={newName} onChange={newNameHandler} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={newNumberHandler} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        name={newName}
+        number={newNumber}
+        onChangeName={newNameHandler}
+        onChangeNumber={newNumberHandler}
+        onSubmit={addNewName}
+      ></PersonForm>
       <h2>Numbers</h2>
-      {persons
-        .filter((elm) => elm.name.toLocaleLowerCase().includes(filter))
-        .map((person) => {
-          return (
-            <p key={person.name}>
-              <span>{person.name}</span> <span>{person.number}</span>
-            </p>
-          );
-        })}
+      <Persons filter={filter} persons={persons}></Persons>
     </div>
   );
 };
