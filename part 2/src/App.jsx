@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Filter from "./components/Filter/Filter";
 import PersonForm from "./components/PersonForm/PersonForm";
-import { getAll, create } from "./services/phoneBook";
+import { getAll, create, deletePerson } from "./services/phoneBook";
 import Persons from "./components/Persons/Persons";
 
 const App = () => {
@@ -41,6 +41,15 @@ const App = () => {
       setNewNumber("");
     });
   };
+
+  const deleteHandler = (id, person) => {
+    if (window.confirm(`Delete ${person.name}?`)) {
+      deletePerson(id);
+      getAll().then((response) => {
+        return setPersons(response);
+      });
+    }
+  };
   useEffect(() => {
     getAll().then((response) => {
       setPersons(response);
@@ -60,7 +69,11 @@ const App = () => {
         onSubmit={addNewName}
       ></PersonForm>
       <h2>Numbers</h2>
-      <Persons filter={filter} persons={persons}></Persons>
+      <Persons
+        deleteHandler={deleteHandler}
+        filter={filter}
+        persons={persons}
+      ></Persons>
     </div>
   );
 };
