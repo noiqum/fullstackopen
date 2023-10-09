@@ -11,8 +11,11 @@ const Notification = ({ message }) => {
 
   return (
     <div
-      className="Notification
-  "
+      className={
+        message.type === "success"
+          ? "success-notification"
+          : "error-notification"
+      }
     >
       {message}
     </div>
@@ -20,7 +23,10 @@ const Notification = ({ message }) => {
 };
 
 Notification.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.shape({
+    message: PropTypes.string,
+    type: PropTypes.string,
+  }),
 };
 
 export default Notification;

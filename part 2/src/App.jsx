@@ -57,22 +57,33 @@ const App = () => {
       ) {
         const person = persons.find((person) => person.name === newName);
         const changedPerson = { ...person, number: newNumber };
-        update(person.id, changedPerson).then((response) => {
-          setPersons(
-            persons.map((person) =>
-              person.id !== response.id ? person : response
-            )
-          );
-          setServerMessage(`Updated ${response.name}`);
-          setNewName("");
-          setNewNumber("");
-        });
+        update(person.id, changedPerson)
+          .then((response) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== response.id ? person : response
+              )
+            );
+            setServerMessage({
+              message: `Updated ${response.name}`,
+              type: "success",
+            });
+            setNewName("");
+            setNewNumber("");
+          })
+          .catch((error) => {
+            console.log("error", error);
+            setServerMessage({
+              message: `Information of ${person.name} has already been removed from server`,
+              type: "error",
+            });
+          });
       }
       return;
     }
     create(newPerson).then((response) => {
       setPersons(persons.concat(response));
-      setServerMessage(`Added ${response.name}`);
+      setServerMessage({ message: `Added ${response.name}`, type: "success" });
       setNewName("");
       setNewNumber("");
     });
@@ -80,7 +91,20 @@ const App = () => {
 
   const deleteHandler = (id, person) => {
     if (window.confirm(`Delete ${person.name}?`)) {
-      deletePerson(id);
+      deletePerson(id)
+        .then(() => {
+          setServerMessage({
+            message: `Deleted ${person.name}`,
+            type: "success",
+          });
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setServerMessage({
+            message: `Information of ${person.name} has already been removed from server`,
+            type: "error",
+          });
+        });
       getAll().then((response) => {
         return setPersons(response);
       });
