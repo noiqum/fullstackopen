@@ -4,12 +4,30 @@ import Filter from "./components/Filter/Filter";
 import PersonForm from "./components/PersonForm/PersonForm";
 import { getAll, create, deletePerson, update } from "./services/phoneBook";
 import Persons from "./components/Persons/Persons";
+import Notification from "./components/Notification/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [serverMessage, setServerMessage] = useState(null);
+
+  useEffect(() => {
+    if (serverMessage) {
+      setTimeout(() => {
+        setServerMessage(null);
+      }, 3000);
+    } else {
+      return;
+    }
+  }, [serverMessage]);
+
+  useEffect(() => {
+    getAll().then((response) => {
+      setPersons(response);
+    });
+  }, []);
 
   const filterHandler = (event) => {
     event.preventDefault();
@@ -45,6 +63,7 @@ const App = () => {
               person.id !== response.id ? person : response
             )
           );
+          setServerMessage(`Updated ${response.name}`);
           setNewName("");
           setNewNumber("");
         });
@@ -53,6 +72,7 @@ const App = () => {
     }
     create(newPerson).then((response) => {
       setPersons(persons.concat(response));
+      setServerMessage(`Added ${response.name}`);
       setNewName("");
       setNewNumber("");
     });
@@ -66,15 +86,11 @@ const App = () => {
       });
     }
   };
-  useEffect(() => {
-    getAll().then((response) => {
-      setPersons(response);
-    });
-  }, []);
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={serverMessage}></Notification>
       <Filter value={filter} onChange={filterHandler}></Filter>
       <h2>Add a new</h2>
       <PersonForm
