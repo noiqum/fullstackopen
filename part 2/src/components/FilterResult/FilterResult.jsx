@@ -1,16 +1,35 @@
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useState } from "react";
 import Country from "../Country/Country";
 
 const FilterResult = ({ countries }) => {
+  const [display, setDisplay] = useState(null);
+  const renderContent = () => {
+    if (countries.length === 1) {
+      return <Country country={countries[0]} />;
+    }
+    if (countries.length > 10) {
+      return <p>Too many matches, specify another filter</p>;
+    } else if (countries.length > 1 && countries.length < 10) {
+      return countries.map((country) => (
+        <p key={country.name.common}>
+          {country.name.common}{" "}
+          <button onClick={() => setDisplay(country)}>show</button>
+        </p>
+      ));
+    }
+  };
+  useEffect(() => {
+    setDisplay(null);
+  }, [countries]);
   return (
     <div>
-      {countries.length > 10 && <p>Too many matches, specify another filter</p>}
-      {countries.length > 1 &&
-        countries.length < 10 &&
-        countries.map((country) => (
-          <p key={country.name.common}>{country.name.common}</p>
-        ))}
-      {countries.length === 1 && <Country country={countries[0]} />}
+      {display !== null ? (
+        <Country country={display}></Country>
+      ) : (
+        renderContent()
+      )}
     </div>
   );
 };
